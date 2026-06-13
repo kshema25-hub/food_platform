@@ -66,8 +66,8 @@ const userSchema = new mongoose.Schema({
   passwordResetExpire: Date,
 
  
-}
-{  timestamps: true}
+},
+{timestamps: true}
 );
 // hash password
 // pre("save") => runs before data is saved
