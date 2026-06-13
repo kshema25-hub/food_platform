@@ -83,8 +83,17 @@ userSchema.pre("save", async function () {
 userSchema.methods.comparePassword = async function (candidatePassword,userPassword) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
+// check if password is changed after token is issued
+// if yes,the old token is invalid and must log in again to get a new token
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
     return JWTTimestamp < changedTimestamp;
   }
+  return false;
+};
+// custom method to generate jwt token
+userSchema.methods.generateJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRE});
+};
+module.exports = mongoose.model("User", userSchema);
