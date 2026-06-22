@@ -57,7 +57,7 @@ const jwt = require("jsonwebtoken");
 
 const sendToken = (user, statusCode, res) => {
 
-  const token = user.getJWTToken();
+  const token = user.generateJWTToken();
 
   const cookieOptions = {
     expires: new Date(
