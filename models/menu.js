@@ -1,16 +1,30 @@
 const mongoose = require("mongoose");
 const foodItemSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true,"plse enter food item name"],
-        trim: true,
-        maxlength: [100, "food item name cannot exceed 100 characters"]
-    },
-    price: {
-        type: Number,
-        required: [true,"plse enter food item price"],
-        maxlength: [5, "food item price cannot exceed 5 characters"],
-        default: 0.0
-    }
-})
+    menu: [
+        {
+            category: {
+                type: String,
+                required: [true, "Please provide a category for the menu item"],
+            },
+            items: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "FoodItem",
+                    required: true,
+        }
+    ]
+}
+],
+restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+    required: true
+},
+},
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+}
+)
     module.exports = mongoose.model("FoodItem", foodItemSchema);
+    module.exports = menu

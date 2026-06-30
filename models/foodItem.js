@@ -33,7 +33,7 @@ images: [
     }
 ],
 menu: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Menu"
 },
 stock: {
@@ -43,8 +43,42 @@ stock: {
     default: 0
 },
 restaurant: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",
     required: true
-}
+},
+numberOfReviews: {
+    type: Number,
+    default: 0
+},
+reviews: [
+    {
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+      },
+     name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+createdAt: {
+    type: Date,
+    default: Date.now()
+  }
+
+
+
 })
+module.exports = mongoose.model("FoodItem", foodItemSchema);
+//fooditems
