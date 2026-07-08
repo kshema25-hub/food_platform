@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const restaurantSchema = new mongoose.Schema();
-({
+
+const restaurantSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "please provide a name for the restaurant"],
@@ -72,6 +72,8 @@ const restaurantSchema = new mongoose.Schema();
     default: Date.now,
   },
 });
+
 restaurantSchema.index({ location: "2dsphere" });
 restaurantSchema.index({ name: "text", address: "text" });
+
 module.exports = mongoose.model("Restaurant", restaurantSchema);
